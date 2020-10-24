@@ -31,7 +31,7 @@ input {
 button {
 	cursor: pointer;
 	padding: 12px;
-	background: #7c5cbf;
+	background: #161fb4;
 	border: none;
 	color: #fff;
 	font-size: 16px;
@@ -140,4 +140,8 @@ button:disabled {
 	list-style-type: none;
 	font-weight: 300;
 	padding: 12px 24px 0;
+}
+.warning {
+	background: #eee;
+	height: 100px;
 }
