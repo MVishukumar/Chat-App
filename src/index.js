@@ -9,6 +9,13 @@ const {
 	generateLocationMessage,
 } = require('./utils/messages');
 
+const {
+	addUser,
+	removeUser,
+	getUser,
+	getUsersInRoom,
+} = require('./utils/users');
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -20,30 +27,74 @@ app.use(express.static(publicDirectoryPath));
 
 let count = 0;
 io.on('connection', (socket) => {
-	console.log('New client connected');
+	socket.on('join', ({ username, room }, callback) => {
+		const { error, user } = addUser({
+			id: socket.id,
+			username: username,
+			room: room,
+		});
 
-	socket.emit('message', generateMessage('Welcome!'));
+		if (error) {
+			return callback(error);
+		}
 
-	// socket.broadcast.emit will emit message to all other clients except self
-	socket.broadcast.emit(
-		'message',
-		generateMessage('A new user joined chat room')
-	);
+		socket.join(user.room);
+
+		socket.emit('message', generateMessage('Admin', 'Welcome!'));
+
+		// socket.broadcast.emit will emit message to all other clients except self
+		// socket.broadcast.to.emit will emit message to only connected chatroom
+		socket.broadcast
+			.to(user.room)
+			.emit(
+				'message',
+				generateMessage('Admin', `${user.username} has joined.`)
+			);
+
+		io.to(user.room).emit('roomData', {
+			room: user.room,
+			users: getUsersInRoom(user.room),
+		});
+
+		callback();
+	});
 
 	socket.on('sendMessage', (message, callback) => {
-		console.log(message);
-		io.emit('message', generateMessage(message));
+		const user = getUser(socket.id);
+
+		io.to(user.room).emit(
+			'message',
+			generateMessage(user.username, message)
+		);
 		callback(':Delivered');
 	});
 
 	socket.on('disconnect', () => {
-		io.emit('message', generateMessage('A user has disconnected'));
+		const user = removeUser(socket.id);
+
+		if (user) {
+			io.to(user.room).emit(
+				'message',
+				generateMessage(
+					'Admin',
+					`${user.username} left the conversation`
+				)
+			);
+
+			io.to(user.room).emit('roomData', {
+				room: user.room,
+				users: getUsersInRoom(user.room),
+			});
+		}
 	});
 
 	socket.on('sendLocation', (location, callback) => {
-		io.emit(
+		const user = getUser(socket.id);
+
+		io.to(user.room).emit(
 			'locationMessage',
 			generateLocationMessage(
+				user.username,
 				`https://google.com/maps?q=${location.lat},${location.long}`
 			)
 		);

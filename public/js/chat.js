@@ -23,23 +23,61 @@ const messageTemplate = document.querySelector('#message-template').innerHTML;
 const locationMessageTemplete = document.querySelector(
 	'#location-message-template'
 ).innerHTML;
+const sidebarTemplete = document.querySelector('#sidebar-template').innerHTML;
+
+// Options
+const { username, room } = Qs.parse(location.search, {
+	ignoreQueryPrefix: true,
+});
+
+const autoscroll = () => {
+	const $newMessage = $messages.lastElementChild;
+
+	const $newMessageStyles = getComputedStyle($newMessage);
+	const $newMessageMargin = parseInt($newMessageStyles.marginBottom);
+	const $newMessageHeight = $newMessage.offsetHeight + $newMessageMargin;
+
+	const $visibleHeight = $messages.offsetHeight;
+
+	const $containerHeight = $messages.scrollHeight;
+
+	const $scrollOffset = $messages.scrollTop + $visibleHeight;
+
+	if ($containerHeight - $newMessageHeight <= $scrollOffset) {
+		$messages.scrollTop = $messages.scrollHeight;
+	}
+};
 
 socket.on('message', (message) => {
 	console.log(message);
 	const html = Mustache.render(messageTemplate, {
+		username: message.username,
 		message: message.text,
 		createdAt: moment(message.created).format('h:mm a'),
 	});
 	$messages.insertAdjacentHTML('beforeend', html);
+	autoscroll();
 });
 
 socket.on('locationMessage', (message) => {
 	console.log(message);
 	const html = Mustache.render(locationMessageTemplete, {
+		username: message.username,
 		url: message.url,
 		createdAt: moment(message.createdAt).format('h:mm a'),
 	});
 	$messages.insertAdjacentHTML('beforeend', html);
+	autoscroll();
+});
+
+socket.on('roomData', ({ room, users }) => {
+	const html = Mustache.render(sidebarTemplete, {
+		room,
+		users,
+	});
+
+	document.querySelector('#sidebar').innerHTML = html;
+	//$messages.insertAdjacentHTML('beforeend', html);
 });
 
 $chatForm.addEventListener('submit', (event) => {
@@ -78,4 +116,11 @@ document.querySelector('#sendLocation').addEventListener('click', () => {
 			}
 		);
 	});
+});
+
+socket.emit('join', { username, room }, (callback) => {
+	if (callback) {
+		alert(callback);
+		location.href = '/';
+	}
 });
