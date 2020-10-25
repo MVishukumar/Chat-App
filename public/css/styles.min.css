@@ -145,3 +145,7 @@ button:disabled {
 	background: #eee;
 	height: 100px;
 }
+
+.mycapitalize {
+	text-transform: capitalize;
+}
