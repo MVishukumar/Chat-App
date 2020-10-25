@@ -50,17 +50,26 @@
 					>
 				</p>
 			</div>
-
-			<!-- <div class="message">
-				<p>
-					<span class="message__name">{{username}}</span>
-					<span class="message__meta">{{createdAt}}</span>
-				</p>
-				<p>{{message}}</p>
-			</div> -->
 		</script>
 
 		<script id="location-message-template" type="text/html">
+			<div class="shadow p-2 mb-2 bg-white rounded">
+				<p>
+					<span class="font-weight-bold mycapitalize"
+						>{{username}}
+						<span class="float-right">{{createdAt}}</span></span
+					>
+					<br />
+					<span class="font-weight-normal text-monospace"
+						><p>
+							<a href="{{url}}" target="_blank"
+								>My current location</a
+							>
+						</p></span
+					>
+				</p>
+			</div>
+			<!-- 
 			<div class="message">
 				<p>
 					<span class="message__name">{{username}}</span>
@@ -69,7 +78,7 @@
 				<p>
 					<a href="{{url}}" target="_blank">My current location</a>
 				</p>
-			</div>
+			</div> -->
 		</script>
 
 		<script id="sidebar-template" type="text/html">
