@@ -43,6 +43,11 @@ const autoscroll = () => {
 
 	const $scrollOffset = $messages.scrollTop + $visibleHeight;
 
+	console.log(
+		`$containerHeight = ${$containerHeight}, $newMessageHeight = ${$newMessageHeight}, $scrollOffset = ${$scrollOffset}`
+	);
+	console.log(`$messages.scrollHeight = ${$messages.scrollHeight}`);
+
 	if ($containerHeight - $newMessageHeight <= $scrollOffset) {
 		$messages.scrollTop = $messages.scrollHeight;
 	}
@@ -56,7 +61,7 @@ socket.on('message', (message) => {
 		createdAt: moment(message.created).format('h:mm a'),
 	});
 	$messages.insertAdjacentHTML('beforeend', html);
-	autoscroll();
+	//autoscroll();
 });
 
 socket.on('locationMessage', (message) => {
