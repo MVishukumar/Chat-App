@@ -22,6 +22,10 @@
 			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Noto+Serif+JP:wght@600&display=swap"
 			rel="stylesheet"
 		/>
+		<script
+			src="https://kit.fontawesome.com/cf4fb83f05.js"
+			crossorigin="anonymous"
+		></script>
 		<style>
 			body {
 				height: 100%;
@@ -158,9 +162,12 @@
 			<h3>Users</h3>
 			<hr class="my-3" />
 
-			<ul>
+			<ul style="list-style-type:none;">
 				{{#users}}
-				<li><span class="mycapitalize">{{username}}</span></li>
+				<li>
+					<i class="fas fa-cat"></i>
+					<span class="mycapitalize">{{username}}</span>
+				</li>
 				{{/users}}
 			</ul>
 		</script>

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "express": "^4.17.1",
     "jshint": "^2.12.0",
     "socket.io": "^2.3.0"
