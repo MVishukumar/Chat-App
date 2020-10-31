@@ -12,6 +12,7 @@ input {
 body {
 	line-height: 1.4;
 	color: #333;
+	font-family: 'Roboto', sans-serif;
 	font-family: Helvetica, Arial, sans-serif;
 }
 h1 {
@@ -149,4 +150,8 @@ button:disabled {
 
 .mycapitalize {
 	text-transform: capitalize;
+}
+
+.custombold {
+	font-weight: bold;
 }
