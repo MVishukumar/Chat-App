@@ -1,0 +1,81 @@
+body {
+	background: #a9a9a9;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-family: 'Cormorant Garamond', serif;
+
+	font-family: 'Roboto', sans-serif;
+}
+
+.container {
+	height: 100%;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.bluegradient {
+	background: hsla(221, 45%, 73%, 1);
+
+	background: linear-gradient(
+		90deg,
+		hsla(221, 45%, 73%, 1) 0%,
+		hsla(220, 78%, 29%, 1) 100%
+	);
+
+	background: -moz-linear-gradient(
+		90deg,
+		hsla(221, 45%, 73%, 1) 0%,
+		hsla(220, 78%, 29%, 1) 100%
+	);
+
+	background: -webkit-linear-gradient(
+		90deg,
+		hsla(221, 45%, 73%, 1) 0%,
+		hsla(220, 78%, 29%, 1) 100%
+	);
+
+	filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#9BAFD9", endColorstr="#103783", GradientType=1 );
+}
+
+.bluegradientreverse {
+	background: rgb(16, 124, 182);
+	background: linear-gradient(
+		90deg,
+		rgba(16, 124, 182, 0.3321661428243172) 0%,
+		rgba(19, 114, 210, 1) 28%,
+		rgba(42, 97, 165, 1) 100%
+	);
+}
+
+.whitetext {
+	color: white;
+}
+
+.whitetextbold {
+	font-weight: bold;
+}
+
+.whitebackground {
+	background-color: white;
+}
+
+.customrounded {
+	border-radius: 10px;
+}
+
+.custompadding {
+	padding: 1rem;
+}
+
+.bodypadding {
+	padding: 5rem;
+}
+
+.customshadow {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+		7px 10px 20px 9px rgba(0, 0, 0, 0.19);
+}
