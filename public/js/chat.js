@@ -1,10 +1,8 @@
 $(document).ready(function () {
-	alert('Client JS loaded..........');
-
 	const socket = io();
 
 	socket.on('countUpdated', (count) => {
-		console.log('countUpdated event:', count);
+		//console.log('countUpdated event:', count);
 	});
 
 	// document.querySelector('#increment').addEventListener('click', () => {
@@ -60,7 +58,7 @@ $(document).ready(function () {
 	};
 
 	socket.on('message', (message) => {
-		console.log(message);
+		//console.log(message);
 		const html = Mustache.render(messageTemplate, {
 			username: message.username,
 			message: message.text,
@@ -71,7 +69,7 @@ $(document).ready(function () {
 	});
 
 	socket.on('locationMessage', (message) => {
-		console.log(message);
+		//console.log(message);
 		const html = Mustache.render(locationMessageTemplete, {
 			username: message.username,
 			url: message.url,
@@ -108,7 +106,7 @@ $(document).ready(function () {
 			$chatFormSubmitButton.removeAttribute('disabled');
 			$chatFormInputMessage.value = '';
 			$chatFormInputMessage.focus();
-			console.log(callbackMessage);
+			//console.log(callbackMessage);
 		});
 	});
 
